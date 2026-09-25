@@ -1,5 +1,9 @@
 # follows-from
 
+**Published:** 25 September 2026 · **Author:** Andrew Espira ([@espirado](https://github.com/espirado))
+
+AAIF September tutorial (goose + MCP): [Inspecting goose's MCP execution](docs/inspecting-goose-mcp-execution.md).
+
 **Does an agent's action follow from the evidence it actually got?**
 
 Agent-audit tooling mostly records *what* an agent did — which tools it called,
@@ -166,6 +170,18 @@ python -m pytest -q
 The `demo` extra installs `fastmcp` so `tests/test_goose_demo.py` can drive the
 mock MCP server and confirm the bundled traces match what it really returns;
 without it, those tests are skipped.
+
+CI (`.github/workflows/ci.yml`) runs the suite on Python 3.10–3.14 and checks that
+the checker installs and runs with no third-party packages. To run it locally with
+[act](https://github.com/nektos/act) and Docker (flags live in `.actrc`):
+
+```bash
+act                     # all jobs
+act -j test             # just the test matrix
+```
+
+With colima, first point act at its socket:
+`export DOCKER_HOST="$(docker context inspect --format '{{.Endpoints.docker.Host}}')"`.
 
 ## License
 
