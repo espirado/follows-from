@@ -153,6 +153,40 @@ def _same(a: Any, b: Any) -> bool:
     return a == b
 
 
+def _lookup(payload: dict[str, Any], path: str) -> tuple[bool, Any, str | None]:
+    """Resolve `field`, including dotted paths (`results.0.hcpcs_code`).
+
+    A path with no dots is a top-level key. Dots walk objects; integer segments
+    index arrays (0-based, no negatives). A malformed path returns a problem
+    string; a well-formed path that isn't there is simply absent.
+    """
+    if "." not in path:
+        if path in payload:
+            return True, payload[path], None
+        return False, None, None
+
+    parts = path.split(".")
+    if any(p == "" for p in parts):
+        return False, None, f"field path '{path}' is malformed"
+    node: Any = payload
+    for part in parts:
+        if isinstance(node, dict):
+            if part not in node:
+                return False, None, None
+            node = node[part]
+            continue
+        if isinstance(node, list):
+            if part.startswith("-") or not part.isdigit():
+                return False, None, None
+            idx = int(part)
+            if idx >= len(node):
+                return False, None, None
+            node = node[idx]
+            continue
+        return False, None, None
+    return True, node, None
+
+
 # --- atomic premise evaluation ----------------------------------------------
 
 _OPS = ("equals", "not_equals", "exists", "in")
@@ -195,9 +229,9 @@ def _evaluate_atomic(trace: dict[str, Any], atomic: Any) -> Finding:
                        f"result for '{ref}' carries no structured fields to check",
                        ref=ref)
 
-    # `exists` is answered by presence alone; the others need the field present.
-    present = field_name in content
-    observed = content.get(field_name)
+    present, observed, path_problem = _lookup(content, field_name)
+    if path_problem:
+        return Finding(Verdict.INSUFFICIENT_EVIDENCE, path_problem, ref=ref)
 
     if op == "exists":
         want = atomic["exists"]

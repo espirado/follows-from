@@ -88,6 +88,8 @@ from a `content` list holding a single text block with a JSON object; a result w
 
 - Operators: `equals`, `not_equals`, `exists`, `in` (exactly one per premise),
   combined with `all_of` / `any_of`. A bare list means `all_of`.
+- `field` may be a top-level key or a dotted path (`results.0.hcpcs_code`). Integer
+  segments index arrays. A missing path is `INSUFFICIENT_EVIDENCE`, not a match.
 - Values compare with JSON semantics: `true` does not equal `1`, but `20` equals `20.0`.
 - A premise whose evidence is missing, whose tool call failed, or that is itself
   malformed is `INSUFFICIENT_EVIDENCE`; a premise the evidence contradicts is

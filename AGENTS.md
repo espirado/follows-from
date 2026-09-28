@@ -47,6 +47,7 @@ No network, no API keys, no model calls in the core. Keep it that way.
 
 ## Adding a grounds operator (the common task)
 
+`field` may be a dotted path (`results.0.hcpcs_code`); walking lives in `_lookup`.
 Operators live in `check.py` (`equals`, `not_equals`, `exists`, `in`). To add one:
 extend `_OPS`, handle it in `_evaluate_atomic`, return a `Finding` with evidence,
 and add a passing and a failing test in `tests/test_check.py`. Compare values with

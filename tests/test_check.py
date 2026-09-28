@@ -222,3 +222,50 @@ def test_cli_failure_to_run_is_not_a_verdict(tmp_path):
     assert _cli(str(bad)) == 3
     assert _cli(str(array)) == 3
 
+
+# --- nested field paths ------------------------------------------------------
+
+
+def test_dotted_path_reads_nested_object_and_array():
+    payload = {"results": [{"hcpcs_code": "99213", "work_rvu": 1.3}], "total_count": 1}
+    grounds = [{"from": "c1", "field": "results.0.hcpcs_code", "equals": "99213"}]
+    r = check(_with_result({"structuredContent": payload}, grounds))
+    assert r.verdict is Verdict.SUPPORTED
+    assert r.findings[0].observed == "99213"
+
+
+def test_bare_field_still_means_top_level():
+    payload = {"results": [{"hcpcs_code": "99213"}], "total_count": 1}
+    r = check(_with_result({"structuredContent": payload},
+                           [{"from": "c1", "field": "hcpcs_code", "equals": "99213"}]))
+    assert r.verdict is Verdict.INSUFFICIENT_EVIDENCE
+
+
+def test_missing_nested_path_is_insufficient():
+    payload = {"results": [{"hcpcs_code": "99213"}]}
+    r = check(_with_result({"structuredContent": payload},
+                           [{"from": "c1", "field": "results.1.hcpcs_code", "equals": "99213"}]))
+    assert r.verdict is Verdict.INSUFFICIENT_EVIDENCE
+
+
+def test_nested_value_can_contradict():
+    payload = {"results": [{"hcpcs_code": "99214"}]}
+    r = check(_with_result({"structuredContent": payload},
+                           [{"from": "c1", "field": "results.0.hcpcs_code", "equals": "99213"}]))
+    assert r.verdict is Verdict.CONTRADICTED
+    assert r.findings[0].observed == "99214"
+
+
+def test_malformed_path_is_insufficient():
+    r = check(_with_result({"structuredContent": {"a": {"b": 1}}},
+                           [{"from": "c1", "field": "a..b", "equals": 1}]))
+    assert r.verdict is Verdict.INSUFFICIENT_EVIDENCE
+    assert "malformed" in r.findings[0].reason
+
+
+def test_nested_exists():
+    payload = {"results": [{"hcpcs_code": "99213"}]}
+    r = check(_with_result({"structuredContent": payload},
+                           [{"from": "c1", "field": "results.0.hcpcs_code", "exists": True}]))
+    assert r.verdict is Verdict.SUPPORTED
+
