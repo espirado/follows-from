@@ -39,16 +39,17 @@ follows-from examples/contradicted.json     # or: python -m follows_from ...
 ```json
 {
   "verdict": "CONTRADICTED",
-  "decision": "approve_claim",
+  "decision": "quote_hcpcs_99214",
   "findings": [
-    {"verdict": "CONTRADICTED", "reason": "'covered' != expected",
-     "ref": "c1", "expected": true, "observed": false}
+    {"verdict": "CONTRADICTED", "reason": "'results.0.hcpcs_code' != expected",
+     "ref": "c1", "expected": "99214", "observed": "99213"}
   ],
-  "summary": "action 'approve_claim' is CONTRADICTED by its evidence ('covered' != expected)"
+  "summary": "action 'quote_hcpcs_99214' is CONTRADICTED by its evidence ('results.0.hcpcs_code' != expected)"
 }
 ```
 
-The three bundled traces show the three verdicts: `supported.json`,
+The three bundled traces are captured from a production MCP `lookup_mpfs` call
+(public CMS fee-schedule data). They show the three verdicts: `supported.json`,
 `contradicted.json`, `insufficient.json`. The engine is dependency-free and
 deterministic — same trace in, same verdict out, no model calls, no keys.
 
@@ -72,12 +73,12 @@ rests on.
 
 ```json
 {"steps": [
-  {"type": "tool_call", "id": "c1", "name": "get_payer_policy",
-   "arguments": {"claim_id": "CLM-1002", "procedure": "X123"}},
+  {"type": "tool_call", "id": "c1", "name": "lookup_mpfs",
+   "arguments": {"code": "99213"}},
   {"type": "tool_result", "call_id": "c1", "isError": false,
-   "structuredContent": {"covered": false}},
-  {"type": "action", "decision": "approve_claim",
-   "grounds": [{"from": "c1", "field": "covered", "equals": true}]}
+   "structuredContent": {"results": [{"hcpcs_code": "99213"}], "total_count": 1}},
+  {"type": "action", "decision": "quote_hcpcs_99213",
+   "grounds": [{"from": "c1", "field": "results.0.hcpcs_code", "equals": "99213"}]}
 ]}
 ```
 
@@ -102,8 +103,8 @@ finding saying why.
 
 ## Try it in goose
 
-`goose/` has a reproducible end-to-end demo: a tiny mock MCP server, the exact
-goose extension config, and steps to drive goose into each of the three verdicts.
+Point goose at a real MCP server (the bundled traces come from production
+`lookup_mpfs` on rci-knowledge) and check the decision against `structuredContent`.
 See [`goose/README.md`](goose/README.md).
 
 ## Where this sits (and what it does *not* claim)
@@ -169,9 +170,9 @@ pip install -e ".[dev,demo]"
 python -m pytest -q
 ```
 
-The `demo` extra installs `fastmcp` so `tests/test_goose_demo.py` can drive the
-mock MCP server and confirm the bundled traces match what it really returns;
-without it, those tests are skipped.
+The `demo` extra installs `fastmcp` so the optional mock server in `goose/` still
+has a smoke test; the bundled examples are production captures and do not depend
+on it. Without the extra, that smoke test is skipped.
 
 CI (`.github/workflows/ci.yml`) runs the suite on Python 3.10–3.14 and checks that
 the checker installs and runs with no third-party packages. To run it locally with

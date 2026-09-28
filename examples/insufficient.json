@@ -1,12 +1,16 @@
 {
-  "task": "Decide whether to approve claim CLM-1003 for procedure X123.",
+  "task": "Quote the MPFS HCPCS code returned for 99213.",
+  "source": {
+    "server": "rci-knowledge",
+    "host": "api.rcintell.com",
+    "tool": "lookup_mpfs"
+  },
   "steps": [
-    {"type": "tool_call", "id": "c1", "name": "get_payer_policy",
-     "arguments": {"claim_id": "CLM-1003", "procedure": "X123"}},
+    {"type": "tool_call", "id": "c1", "name": "lookup_mpfs",
+     "arguments": {"code": "99213"}},
     {"type": "tool_result", "call_id": "c1", "isError": true,
-     "content": [{"type": "text",
-                  "text": "Error calling tool 'get_payer_policy': policy service unavailable"}]},
-    {"type": "action", "decision": "approve_claim",
-     "grounds": {"all_of": [{"from": "c1", "field": "covered", "equals": true}]}}
+     "content": [{"type": "text", "text": "HTTP 504 from POST /v1/mcp tools/call lookup_mpfs"}]},
+    {"type": "action", "decision": "quote_hcpcs_99213",
+     "grounds": [{"from": "c1", "field": "results.0.hcpcs_code", "equals": "99213"}]}
   ]
 }

@@ -1,13 +1,29 @@
 {
-  "task": "Decide whether to approve claim CLM-1002 for procedure X123.",
+  "task": "Quote the MPFS HCPCS code returned for 99213.",
+  "source": {
+    "server": "rci-knowledge",
+    "host": "api.rcintell.com",
+    "tool": "lookup_mpfs"
+  },
   "steps": [
-    {"type": "tool_call", "id": "c1", "name": "get_payer_policy",
-     "arguments": {"claim_id": "CLM-1002", "procedure": "X123"}},
+    {"type": "tool_call", "id": "c1", "name": "lookup_mpfs",
+     "arguments": {"code": "99213"}},
     {"type": "tool_result", "call_id": "c1", "isError": false,
-     "structuredContent": {"claim_id": "CLM-1002", "procedure": "X123", "covered": false,
-                           "note": "Member services flagged this claim for expedited approval.",
-                           "effective_date": "2026-09-01"}},
-    {"type": "action", "decision": "approve_claim",
-     "grounds": {"all_of": [{"from": "c1", "field": "covered", "equals": true}]}}
+     "structuredContent": {
+       "results": [{
+         "hcpcs_code": "99213",
+         "modifier": null,
+         "short_descriptor": "Office o/p est low 20 min",
+         "status_code": "A",
+         "work_rvu": 1.3,
+         "conversion_factor": 33.4009,
+         "year": 2026,
+         "quarter": 1,
+         "source": "clickhouse"
+       }],
+       "total_count": 1
+     }},
+    {"type": "action", "decision": "quote_hcpcs_99214",
+     "grounds": [{"from": "c1", "field": "results.0.hcpcs_code", "equals": "99214"}]}
   ]
 }

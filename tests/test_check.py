@@ -22,7 +22,7 @@ def test_supported_example():
 def test_contradicted_example():
     r = check(_load("contradicted.json"))
     assert r.verdict is Verdict.CONTRADICTED
-    assert r.findings[0].observed is False and r.findings[0].expected is True
+    assert r.findings[0].observed == "99213" and r.findings[0].expected == "99214"
 
 
 def test_insufficient_example():

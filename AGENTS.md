@@ -18,9 +18,9 @@ python -m pytest -q                              # must pass before commit
 python -m follows_from examples/contradicted.json   # try the CLI
 ```
 
-The `demo` extra (`fastmcp`) is only for `goose/` and `tests/test_goose_demo.py`,
-which checks that the bundled example traces match what the mock MCP server
-actually returns. If you change the mock or an example, that test must still pass.
+The `demo` extra (`fastmcp`) is only for the leftover mock in `goose/` and
+`tests/test_goose_demo.py`. Bundled examples are production `lookup_mpfs`
+captures and do not have to match the mock.
 
 No network, no API keys, no model calls in the core. Keep it that way.
 
