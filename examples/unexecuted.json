@@ -1,0 +1,13 @@
+{
+  "task": "Quote the MPFS HCPCS code returned for 99213.",
+  "source": {
+    "server": "rci-knowledge",
+    "host": "api.rcintell.com",
+    "tool": "lookup_mpfs",
+    "session": "goose, ollama llama3.1:8b, 28 September 2026, turn 1"
+  },
+  "steps": [
+    {"type": "action", "decision": "quote_hcpcs_99213",
+     "grounds": [{"from": "c1", "field": "results.0.hcpcs_code", "equals": "99213"}]}
+  ]
+}

@@ -29,6 +29,12 @@ def test_insufficient_example():
     assert check(_load("insufficient.json")).verdict is Verdict.INSUFFICIENT_EVIDENCE
 
 
+def test_unexecuted_example():
+    r = check(_load("unexecuted.json"))
+    assert r.verdict is Verdict.INSUFFICIENT_EVIDENCE
+    assert r.findings[0].reason == "no tool result for call 'c1'"
+
+
 def test_ungrounded_action_is_insufficient():
     trace = {"steps": [
         {"type": "tool_result", "call_id": "c1", "ok": True, "content": {"covered": True}},
@@ -210,6 +216,7 @@ def test_cli_exit_codes_match_verdicts():
     assert _cli(os.path.join(EX, "supported.json")) == 0
     assert _cli(os.path.join(EX, "contradicted.json")) == 1
     assert _cli(os.path.join(EX, "insufficient.json")) == 2
+    assert _cli(os.path.join(EX, "unexecuted.json")) == 2
 
 
 def test_cli_failure_to_run_is_not_a_verdict(tmp_path):

@@ -105,7 +105,9 @@ finding saying why.
 
 Point goose at a real MCP server (the bundled traces come from production
 `lookup_mpfs` on rci-knowledge) and check the decision against `structuredContent`.
-See [`goose/README.md`](goose/README.md).
+One live session is already captured: a turn that only printed tool-call JSON is
+`examples/unexecuted.json` (`INSUFFICIENT_EVIDENCE`); the turn that actually
+called `lookup_mpfs` is `examples/supported.json`. See [`goose/README.md`](goose/README.md).
 
 ## Where this sits (and what it does *not* claim)
 

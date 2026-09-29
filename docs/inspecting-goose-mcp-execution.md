@@ -1,6 +1,6 @@
 # Inspecting goose's MCP execution: does the action follow the evidence?
 
-**Published:** 25 September 2026 · updated 28 September 2026
+**Published:** 25 September 2026 · updated 29 September 2026
 **Author:** Andrew Espira ([@espirado](https://github.com/espirado))
 **AAIF projects:** [goose](https://github.com/aaif-goose/goose), [MCP](https://modelcontextprotocol.io/)
 **Companion repo:** [espirado/follows-from](https://github.com/espirado/follows-from)
@@ -81,17 +81,43 @@ Operators: `equals`, `not_equals`, `exists`, `in`. Combine them with `all_of` / 
 
 ## 3. Try the same loop in goose
 
-Point goose at the **real** MCP server, not a mock. Config and prompts: [`goose/README.md`](../goose/README.md). You supply a live API key. Copy one `lookup_mpfs` call, its `structuredContent`, and goose's quoted code into the trace shape above, then:
+Point goose at the **real** MCP server, not a mock. Config and prompts: [`goose/README.md`](../goose/README.md). You supply a live API key.
+
+On 28 September 2026, goose with local `ollama` / `llama3.1:8b` and rci-knowledge produced two turns on the same question: look up MPFS for CPT 99213 and report the HCPCS code.
+
+Turn 1 printed this in the chat and never called the tool. Goose showed no `▸ lookup_mpfs` line:
+
+```text
+{"name": "rci-knowledge__lookup_mpfs", "parameters": {"code": "99213"}}
+```
+
+There is no `tool_result`. The trace for that turn is `examples/unexecuted.json`. The grounds still name `c1` and `results.0.hcpcs_code`. The checker returns `INSUFFICIENT_EVIDENCE`, reason `no tool result for call 'c1'`. A well-formed tool JSON in the transcript is not evidence.
+
+Turn 2 called `lookup_mpfs` with `code: 99213` and quoted `99213`. That is `examples/supported.json`.
+
+| Turn | What goose did | Verdict |
+|---|---|---|
+| 1 | Printed tool-call JSON. No MCP call. | `INSUFFICIENT_EVIDENCE` |
+| 2 | Called `lookup_mpfs`. Quoted `99213`. | `SUPPORTED` |
+
+This is one session on an 8B local model.
 
 ```bash
-follows-from your_trace.json
+follows-from examples/unexecuted.json   # exit 2
+follows-from examples/supported.json    # exit 0
 ```
 
 ## 4. The seam this leaves open
 
 Step 3 still has a manual line: **someone has to write the `grounds` predicate.** A raw goose session does not declare what its decision rested on, so the checker returns `INSUFFICIENT_EVIDENCE` — correctly.
 
-Inferring that path from a transcript is exactly where a verifier starts producing well-formed, confident, *wrong* answers. This repo does not do that inference. The engine is deterministic and has no model calls.
+Turn 1 is why that line stays manual. The chat already contained the right tool name and the right code. Treating that printed JSON as a completed `tools/call`, and treating the arguments as the result, would have scored the turn `SUPPORTED`. That verdict would have parsed cleanly and been wrong: the server was never asked. This repo does not infer grounds from a transcript. The engine is deterministic and has no model calls.
+
+## 5. A runtime boundary does not answer this
+
+On 28 September 2026 NVIDIA announced the Open Agent Safety Platform: [OpenShell](https://developer.nvidia.com/blog/add-runtime-controls-to-ai-agents-with-nvidia-openshell/) traces agent actions and enforces policy outside the agent process, including inspected MCP traffic, and [Sentry](https://developer.nvidia.com/blog/nvidia-open-agent-safety-platform-a-reference-for-continuous-in-silicon-agent-monitoring/) can quarantine from hardware. That stack answers whether an action was allowed.
+
+This checker answers the next question: whether the action followed from the tool result the agent obtained. Turn 1 never left the process, so an allow-list has nothing to check. `follows-from` keeps that missing evidence as its own answer.
 
 Longer framing: [README](../README.md).
 

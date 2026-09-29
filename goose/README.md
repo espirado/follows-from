@@ -77,11 +77,23 @@ If goose quoted `99213`, you get `SUPPORTED`. If it quoted a different code, you
 get `CONTRADICTED`. If `tools/call` failed (we have seen HTTP 504 on this path),
 you get `INSUFFICIENT_EVIDENCE`.
 
+## What one live session did
+
+On 28 September 2026, goose with `ollama` / `llama3.1:8b` against this server:
+
+| Turn | What happened | Trace |
+|---|---|---|
+| 1 | Printed `{"name": "rci-knowledge__lookup_mpfs", "parameters": {"code": "99213"}}` in the chat. No `▸ lookup_mpfs` line. | `../examples/unexecuted.json` → `INSUFFICIENT_EVIDENCE` |
+| 2 | Called `lookup_mpfs` with `code: 99213` and quoted `99213`. | `../examples/supported.json` → `SUPPORTED` |
+
+Same model, same server, same question. The printed JSON is not a tool result.
+
 ## The honest gap
 
 Someone still has to write the `grounds` path. A raw goose session does not
-declare it. Inferring `results.0.hcpcs_code` from the transcript is the research
-seam — see the README's "Open question".
+declare it. Inferring `results.0.hcpcs_code` from the transcript — or from a
+tool-call JSON the model only printed — is the research seam. See the README's
+"Open question".
 
 `mock_policy_server.py` in this folder is leftover demo scaffolding. The
 examples and this walkthrough do not use it.
