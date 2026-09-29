@@ -4,12 +4,13 @@
 **Author:** Andrew Espira ([@espirado](https://github.com/espirado))
 **AAIF projects:** [goose](https://github.com/aaif-goose/goose), [MCP](https://modelcontextprotocol.io/)
 **Companion repo:** [espirado/follows-from](https://github.com/espirado/follows-from)
+**Published walkthrough:** [Does the action follow the evidence?](https://espiradev.org/blog/mcp-trace-follows-from.html)
 
-Most tooling around agents records *what* happened — which MCP tools [goose](https://github.com/aaif-goose/goose) called, and what came back. This walkthrough asks a narrower question a goose or MCP developer can run in a couple of minutes:
+Most tooling around agents records *what* happened: which MCP tools [goose](https://github.com/aaif-goose/goose) called, and what came back. This guide asks a narrower question a goose or MCP developer can check on a real trace:
 
 > Given the tool evidence the agent actually obtained, does its final action **follow** from that evidence?
 
-The bundled traces are not a toy payer. They are the shape of a production MCP `tools/call` — `lookup_mpfs` for CPT 99213 on [rci-knowledge](https://api.rcintell.com/v1/mcp) — public CMS fee-schedule data.
+The bundled traces are a production MCP `tools/call`: `lookup_mpfs` for CPT 99213 on [rci-knowledge](https://api.rcintell.com/v1/mcp), public CMS fee-schedule data.
 
 The checker answers with one of three verdicts. The third one is the point.
 
@@ -21,12 +22,41 @@ The checker answers with one of three verdicts. The third one is the point.
 
 Forcing a missing-evidence case into PASS or FAIL is where audits quietly lie. An honest checker says "I can't tell" out loud.
 
-You do not need a live key or a goose session for the steps below.
+**Section 1 is the follow-along.** You do not need a live key or a goose session. You open a trace, run it, read the verdict, then change one field and run it again. Section 2 is the same loop inside goose.
 
-## 0. What you need
+## 1. Follow along: check a trace
 
-- Python 3.10 or newer (the `python3` that ships with macOS is 3.9)
-- About two minutes
+### What you are looking at
+
+A trace has three steps.
+
+1. `tool_call` records the MCP call (`lookup_mpfs`, arguments `{"code": "99213"}`).
+2. `tool_result` is an MCP `CallToolResult`: `isError`, and the payload in `structuredContent`. Evidence is read from `structuredContent`. A text block with the same JSON is a fallback. `isError: true` is a failed call, so there is nothing to match.
+3. `action` declares **grounds**: which result it rests on, which field, and one operator (`equals`, `not_equals`, `exists`, or `in`).
+
+The HCPCS code in this payload sits at `results[0].hcpcs_code`. Grounds name that with a dotted path, `results.0.hcpcs_code`. Integer segments index arrays. A bare `hcpcs_code` does not match: the field is on the row, and the path you named does not reach it. That verdict is `INSUFFICIENT_EVIDENCE`.
+
+Values compare with JSON semantics: `true` is not `1`, and `20` equals `20.0`. An early version of this checker used Python's `==`, under which `1 == True`. A result of `{"covered": 1}` came back `SUPPORTED` for grounds that required `covered == true`. The JSON was well formed and the verdict was wrong for that whole class of inputs. That comparison is fixed. It is also why the grounds stay explicit. Inferring them from a transcript is where a verifier starts returning answers that parse and are systematically wrong. This follow-along does not do that inference. Same trace in, same verdict out. No model call.
+
+This is Phase 1, exploratory. No novelty claim. The neighboring work is named in the [README](../README.md).
+
+The lines that decide the verdict in `examples/supported.json` are:
+
+```json
+{"type": "tool_result", "call_id": "c1", "isError": false,
+ "structuredContent": {"results": [{"hcpcs_code": "99213"}], "total_count": 1}}
+```
+
+```json
+{"type": "action", "decision": "quote_hcpcs_99213",
+ "grounds": [{"from": "c1", "field": "results.0.hcpcs_code", "equals": "99213"}]}
+```
+
+The file on disk also carries the rest of the fee-schedule row (RVUs, conversion factor, year). The checker only reads the path the grounds name.
+
+### Install
+
+Python 3.10 or newer. The `python3` that ships with macOS is 3.9; use a Homebrew, pyenv, or uv Python.
 
 ```bash
 git clone https://github.com/espirado/follows-from.git
@@ -35,17 +65,43 @@ python3 -m venv .venv && . .venv/bin/activate
 pip install -e .
 ```
 
-## 1. Run the three verdicts
+### Supported
 
-Each file under `examples/` is an MCP-shaped trace: a `tool_call`, a `tool_result` using MCP's own fields (`isError`, `structuredContent`), and a final `action` that declares its **grounds**.
+Open `examples/supported.json`. The server returned `hcpcs_code: "99213"`. The action quotes `99213` and names `results.0.hcpcs_code`.
 
 ```bash
-follows-from examples/supported.json      # exit 0
-follows-from examples/contradicted.json   # exit 1
-follows-from examples/insufficient.json   # exit 2
+follows-from examples/supported.json
 ```
 
-The contradicted run is the one to look at. The server returned `hcpcs_code: "99213"`. The action quoted `99214`:
+```json
+{
+  "verdict": "SUPPORTED",
+  "decision": "quote_hcpcs_99213",
+  "findings": [
+    {
+      "verdict": "SUPPORTED",
+      "reason": "'results.0.hcpcs_code' == expected",
+      "ref": "c1",
+      "expected": "99213",
+      "observed": "99213"
+    }
+  ]
+}
+```
+
+Exit code `0`.
+
+### Contradicted
+
+`examples/contradicted.json` is the same tool result. The grounds expect `99214`.
+
+```json
+{"from": "c1", "field": "results.0.hcpcs_code", "equals": "99214"}
+```
+
+```bash
+follows-from examples/contradicted.json
+```
 
 ```json
 {
@@ -63,23 +119,65 @@ The contradicted run is the one to look at. The server returned `hcpcs_code: "99
 }
 ```
 
-The code sits under `results[0]`, not at the top level. Grounds use a dotted path: `results.0.hcpcs_code`. A bare `hcpcs_code` is `INSUFFICIENT_EVIDENCE` — the field is not absent from the world, it is absent from the path you named.
+Exit code `1`. The observed value is what the server returned. The expected value is what the action claimed.
 
-`examples/insufficient.json` is the other live miss: `tools/call` returned HTTP 504, so there is no payload to check. That is not FAIL. It is `INSUFFICIENT_EVIDENCE`.
+### Change one path
 
-Exit codes match the three answers (`0` / `1` / `2`). A checker that failed to run exits `3` — that is not a verdict.
+Copy the supported trace and name the top-level key instead of the row.
 
-## 2. Read the MCP result the way MCP sends it
-
-A real `CallToolResult` is `isError` plus `structuredContent` (and often a text block with the same JSON). The production server now returns both. Evidence is read from `structuredContent` first.
-
-```json
-{"from": "c1", "field": "results.0.hcpcs_code", "equals": "99213"}
+```bash
+cp examples/supported.json /tmp/bare-field.json
 ```
 
-Operators: `equals`, `not_equals`, `exists`, `in`. Combine them with `all_of` / `any_of`. Values compare with JSON semantics: `true` is not `1`. Nested fields are dotted paths; integer segments index arrays.
+In `/tmp/bare-field.json`, change the grounds field from `results.0.hcpcs_code` to `hcpcs_code`. Leave `equals` as `99213`.
 
-## 3. Try the same loop in goose
+```bash
+follows-from /tmp/bare-field.json
+```
+
+```json
+{
+  "verdict": "INSUFFICIENT_EVIDENCE",
+  "decision": "quote_hcpcs_99213",
+  "findings": [
+    {
+      "verdict": "INSUFFICIENT_EVIDENCE",
+      "reason": "field 'hcpcs_code' absent from 'c1' result",
+      "ref": "c1"
+    }
+  ]
+}
+```
+
+Exit code `2`. The code is in the payload. The path you named does not reach it, so the checker will not treat that as a match or a contradiction.
+
+### A call that failed
+
+`examples/insufficient.json` is the 504 we got from `tools/call` on this route. `isError` is true. There is no `structuredContent` to read. The grounds still ask for `results.0.hcpcs_code`.
+
+```bash
+follows-from examples/insufficient.json
+```
+
+```json
+{
+  "verdict": "INSUFFICIENT_EVIDENCE",
+  "decision": "quote_hcpcs_99213",
+  "findings": [
+    {
+      "verdict": "INSUFFICIENT_EVIDENCE",
+      "reason": "tool call 'c1' failed",
+      "ref": "c1"
+    }
+  ]
+}
+```
+
+Exit code `2`. A failed call is not a contradiction: the action did not quote a code the server denied. There was no payload.
+
+Exit codes for a verdict are `0` / `1` / `2`. If the checker cannot run (missing file, invalid JSON), it exits `3`. That is not a verdict.
+
+## 2. Try the same loop in goose
 
 Point goose at the **real** MCP server, not a mock. Config and prompts: [`goose/README.md`](../goose/README.md). You supply a live API key.
 
@@ -107,13 +205,13 @@ follows-from examples/unexecuted.json   # exit 2
 follows-from examples/supported.json    # exit 0
 ```
 
-## 4. The seam this leaves open
+## 3. The seam this leaves open
 
-Step 3 still has a manual line: **someone has to write the `grounds` predicate.** A raw goose session does not declare what its decision rested on, so the checker returns `INSUFFICIENT_EVIDENCE` — correctly.
+Someone still has to write the `grounds` predicate. A raw goose session does not declare what its decision rested on, so the checker returns `INSUFFICIENT_EVIDENCE`.
 
 Turn 1 is why that line stays manual. The chat already contained the right tool name and the right code. Treating that printed JSON as a completed `tools/call`, and treating the arguments as the result, would have scored the turn `SUPPORTED`. That verdict would have parsed cleanly and been wrong: the server was never asked. This repo does not infer grounds from a transcript. The engine is deterministic and has no model calls.
 
-## 5. A runtime boundary does not answer this
+## 4. A runtime boundary does not answer this
 
 On 28 September 2026 NVIDIA announced the Open Agent Safety Platform: [OpenShell](https://developer.nvidia.com/blog/add-runtime-controls-to-ai-agents-with-nvidia-openshell/) traces agent actions and enforces policy outside the agent process, including inspected MCP traffic, and [Sentry](https://developer.nvidia.com/blog/nvidia-open-agent-safety-platform-a-reference-for-continuous-in-silicon-agent-monitoring/) can quarantine from hardware. That stack answers whether an action was allowed.
 
