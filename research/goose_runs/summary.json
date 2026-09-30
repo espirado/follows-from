@@ -1,0 +1,83 @@
+[
+  {
+    "label": "printed_only",
+    "n_assistant": 1,
+    "tool_call_names": [],
+    "quoted_codes": [
+      "99213"
+    ],
+    "printed_code": "99213",
+    "goose_exit": 0,
+    "status": "completed",
+    "checker": "INSUFFICIENT_EVIDENCE",
+    "reader": "SUPPORTED",
+    "overclaim": true,
+    "run": 1
+  },
+  {
+    "label": "executed",
+    "n_assistant": 2,
+    "tool_call_names": [
+      "rci-knowledge__lookup_mpfs"
+    ],
+    "quoted_codes": [
+      "99213"
+    ],
+    "printed_code": null,
+    "goose_exit": 0,
+    "status": "completed",
+    "checker": "SUPPORTED",
+    "reader": "SUPPORTED",
+    "overclaim": false,
+    "run": 2
+  },
+  {
+    "label": "executed",
+    "n_assistant": 2,
+    "tool_call_names": [
+      "rci-knowledge__lookup_mpfs"
+    ],
+    "quoted_codes": [
+      "99213"
+    ],
+    "printed_code": null,
+    "goose_exit": 0,
+    "status": "completed",
+    "checker": "SUPPORTED",
+    "reader": "SUPPORTED",
+    "overclaim": false,
+    "run": 3
+  },
+  {
+    "label": "printed_only",
+    "n_assistant": 1,
+    "tool_call_names": [],
+    "quoted_codes": [
+      "99213"
+    ],
+    "printed_code": "99213",
+    "goose_exit": 0,
+    "status": "completed",
+    "checker": "INSUFFICIENT_EVIDENCE",
+    "reader": "SUPPORTED",
+    "overclaim": true,
+    "run": 4
+  },
+  {
+    "label": "executed",
+    "n_assistant": 2,
+    "tool_call_names": [
+      "rci-knowledge__lookup_mpfs"
+    ],
+    "quoted_codes": [
+      "99213"
+    ],
+    "printed_code": null,
+    "goose_exit": 0,
+    "status": "completed",
+    "checker": "SUPPORTED",
+    "reader": "SUPPORTED",
+    "overclaim": false,
+    "run": 5
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "trial": 1,
+    "quote": "run2_backticks",
+    "naive_judge": "CONTRADICTED",
+    "disagreement": "false_contradiction"
+  },
+  {
+    "trial": 1,
+    "quote": "run3_prose",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "missed_support"
+  },
+  {
+    "trial": 1,
+    "quote": "run5_bare",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "missed_support"
+  },
+  {
+    "trial": 2,
+    "quote": "run2_backticks",
+    "naive_judge": "CONTRADICTED",
+    "disagreement": "false_contradiction"
+  },
+  {
+    "trial": 2,
+    "quote": "run3_prose",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "missed_support"
+  },
+  {
+    "trial": 2,
+    "quote": "run5_bare",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "missed_support"
+  },
+  {
+    "trial": 3,
+    "quote": "run2_backticks",
+    "naive_judge": "CONTRADICTED",
+    "disagreement": "false_contradiction"
+  },
+  {
+    "trial": 3,
+    "quote": "run3_prose",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "missed_support"
+  },
+  {
+    "trial": 3,
+    "quote": "run5_bare",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "missed_support"
+  }
+]

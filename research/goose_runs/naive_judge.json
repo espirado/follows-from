@@ -1,0 +1,37 @@
+[
+  {
+    "run": 1,
+    "label": "printed_only",
+    "checker": "INSUFFICIENT_EVIDENCE",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "overclaim": false
+  },
+  {
+    "run": 2,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "CONTRADICTED",
+    "overclaim": false
+  },
+  {
+    "run": 3,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "SUPPORTED",
+    "overclaim": false
+  },
+  {
+    "run": 4,
+    "label": "printed_only",
+    "checker": "INSUFFICIENT_EVIDENCE",
+    "naive_judge": "SUPPORTED",
+    "overclaim": true
+  },
+  {
+    "run": 5,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "overclaim": false
+  }
+]

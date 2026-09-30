@@ -1,0 +1,20 @@
+[
+  {
+    "model": "llama3.1:8b",
+    "trial": 1,
+    "naive_judge": "CONTRADICTED",
+    "disagreement": "agree"
+  },
+  {
+    "model": "llama3.1:8b",
+    "trial": 2,
+    "naive_judge": "CONTRADICTED",
+    "disagreement": "agree"
+  },
+  {
+    "model": "llama3.1:8b",
+    "trial": 3,
+    "naive_judge": "CONTRADICTED",
+    "disagreement": "agree"
+  }
+]

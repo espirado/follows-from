@@ -93,7 +93,9 @@ Same model, same server, same question. The printed JSON is not a tool result.
 Someone still has to write the `grounds` path. A raw goose session does not
 declare it. Inferring `results.0.hcpcs_code` from the transcript — or from a
 tool-call JSON the model only printed — is the research seam. See the README's
-"Open question".
+"Open question". `follows_from.probes.infer_grounds` copies the `lookup_mpfs`
+argument into that premise and scores it with `check`; the writeup is
+`../research/mislabel_classes.md`.
 
 `mock_policy_server.py` in this folder is leftover demo scaffolding. The
 examples and this walkthrough do not use it.

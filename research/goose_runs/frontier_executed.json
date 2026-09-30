@@ -1,0 +1,11 @@
+[
+  {"model": "grok-4.6", "trial": 1, "verdict": "SUPPORTED", "agent": "4c8191ea-8079-4884-a969-fadc6ae924df"},
+  {"model": "grok-4.6", "trial": 2, "verdict": "SUPPORTED", "agent": "b3b49e16-baf8-41e1-900f-7a039fb5ffd4"},
+  {"model": "grok-4.6", "trial": 3, "verdict": "SUPPORTED", "agent": "3395cbe0-dafa-4ba8-a589-f89e8b92a7c5"},
+  {"model": "claude-opus-5.5", "trial": 1, "verdict": "SUPPORTED", "agent": "b3e893da-8ab6-4a4d-ae82-bb890ac6b209"},
+  {"model": "claude-opus-5.5", "trial": 2, "verdict": "SUPPORTED", "agent": "5c1998da-360f-4d2f-9e8c-43512a07196c"},
+  {"model": "claude-opus-5.5", "trial": 3, "verdict": "SUPPORTED", "agent": "c8205c64-0134-416f-b997-dc5bfeb1d50c"},
+  {"model": "gpt-5.6", "trial": 1, "verdict": "SUPPORTED", "agent": "8137e628-33cb-437c-a88c-ae8164f6b35c"},
+  {"model": "gpt-5.6", "trial": 2, "verdict": "SUPPORTED", "agent": "ce3d0f89-943a-4678-a7a2-f27c498077a0"},
+  {"model": "gpt-5.6", "trial": 3, "verdict": "SUPPORTED", "agent": "0ccaa345-3502-4a2a-bcbe-438e81c960af"}
+]

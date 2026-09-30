@@ -1,0 +1,14 @@
+[
+  {"cell": "call_short", "trial": 1, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "9a4aea66-f00a-4260-8039-283f42b3e152"},
+  {"cell": "call_short", "trial": 2, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "9bbcb5e7-14e6-4e28-a074-65a32b45597d"},
+  {"cell": "call_short", "trial": 3, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "23ddc936-974d-4fe2-bc74-828daf1fe0f5"},
+  {"cell": "call_long", "trial": 1, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "e4b40bd9-3f48-4249-aa8f-3660b3d9cc6d"},
+  {"cell": "call_long", "trial": 2, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "12f926e2-b43a-4b80-9434-be15dae1dcb1"},
+  {"cell": "call_long", "trial": 3, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "41069a21-dd2b-4e51-baf8-e78fe89db1fb"},
+  {"cell": "response_short", "trial": 1, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "4a980dae-9d6e-4497-be4b-96e321d2de3d"},
+  {"cell": "response_short", "trial": 2, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "3f53934c-3435-46ae-a2ff-bfa58ec96be4"},
+  {"cell": "response_short", "trial": 3, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "15e9bb38-9b7c-4524-805c-1bf95bb0380e"},
+  {"cell": "response_long", "trial": 1, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "f211ee29-ac2d-48e1-ab49-c0ab9a18db85"},
+  {"cell": "response_long", "trial": 2, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "12e0e29b-d959-44d9-b30b-7fe74f9492ef"},
+  {"cell": "response_long", "trial": 3, "verdict": "INSUFFICIENT_EVIDENCE", "agent": "faf3d384-d69c-42e9-88de-5d89f11229fa"}
+]

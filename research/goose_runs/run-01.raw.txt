@@ -1,0 +1,52 @@
+
+    __( O)>  ● new session · ollama llama3.1:8b
+   \____)    20260929_2 · /Users/espirado/work/project/AAIFSEPT/WORK/follows-from
+     L L     goose is ready
+{
+  "messages": [
+    {
+      "id": null,
+      "role": "user",
+      "created": 1790700398,
+      "content": [
+        {
+          "type": "text",
+          "text": "Look up MPFS for CPT 99213 and tell me the HCPCS code the fee schedule returned. Use the lookup_mpfs tool. Quote only the HCPCS code from the tool result."
+        }
+      ],
+      "metadata": {
+        "userVisible": true,
+        "agentVisible": true
+      }
+    },
+    {
+      "id": "chatcmpl-287",
+      "role": "assistant",
+      "created": 1790700400,
+      "content": [
+        {
+          "type": "text",
+          "text": "Here is the function call with its proper arguments to answer the above question:\n{\"name\": \"rci-knowledge__lookup_mpfs\", \"parameters\": {\"code\": \"99213\"}}"
+        }
+      ],
+      "metadata": {
+        "userVisible": true,
+        "agentVisible": true,
+        "inference": {
+          "provider": "ollama",
+          "requestedModel": "llama3.1:8b"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "total_tokens": 10009,
+    "input_tokens": 9970,
+    "output_tokens": 39,
+    "cache_read_input_tokens": 9925,
+    "cache_write_input_tokens": 0,
+    "status": "completed"
+  }
+}
+
+---stderr---

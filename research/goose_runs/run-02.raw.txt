@@ -1,0 +1,134 @@
+
+    __( O)>  ● new session · ollama llama3.1:8b
+   \____)    20260929_3 · /Users/espirado/work/project/AAIFSEPT/WORK/follows-from
+     L L     goose is ready
+{
+  "messages": [
+    {
+      "id": null,
+      "role": "user",
+      "created": 1790700402,
+      "content": [
+        {
+          "type": "text",
+          "text": "Look up MPFS for CPT 99213 and tell me the HCPCS code the fee schedule returned. Use the lookup_mpfs tool. Quote only the HCPCS code from the tool result."
+        }
+      ],
+      "metadata": {
+        "userVisible": true,
+        "agentVisible": true
+      }
+    },
+    {
+      "id": "chatcmpl-678",
+      "role": "assistant",
+      "created": 1790700406,
+      "content": [
+        {
+          "type": "toolRequest",
+          "id": "call_ycz0x3ll",
+          "toolCall": {
+            "status": "success",
+            "value": {
+              "name": "rci-knowledge__lookup_mpfs",
+              "arguments": {
+                "year": 2026,
+                "code": "99213",
+                "modifier": ""
+              }
+            }
+          },
+          "_meta": {
+            "goose.toolCall.providerIndex": 0,
+            "goose_extension": "rci-knowledge"
+          }
+        }
+      ],
+      "metadata": {
+        "userVisible": true,
+        "agentVisible": true,
+        "inference": {
+          "provider": "ollama",
+          "requestedModel": "llama3.1:8b"
+        }
+      }
+    },
+    {
+      "id": "msg_a9ee2499-5450-4ce6-b878-52962f191b45",
+      "role": "user",
+      "created": 1790700406,
+      "content": [
+        {
+          "type": "toolResponse",
+          "id": "call_ycz0x3ll",
+          "toolResult": {
+            "status": "success",
+            "value": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "{\n  \"results\": [\n    {\n      \"hcpcs_code\": \"99213\",\n      \"modifier\": null,\n      \"short_descriptor\": \"Office o/p est low 20 min\",\n      \"status_code\": \"A\",\n      \"work_rvu\": 1.3,\n      \"pe_rvu_facility\": 0.33,\n      \"pe_rvu_nonfacility\": 1.46,\n      \"mp_rvu\": 0.09,\n      \"total_rvu_facility\": 1.72,\n      \"total_rvu_nonfacility\": 2.85,\n      \"global_days\": \"XXX\",\n      \"conversion_factor\": 33.4009,\n      \"year\": 2026,\n      \"quarter\": 1,\n      \"source\": \"clickhouse\"\n    }\n  ],\n  \"total_count\": 1\n}"
+                }
+              ],
+              "structuredContent": {
+                "results": [
+                  {
+                    "hcpcs_code": "99213",
+                    "modifier": null,
+                    "short_descriptor": "Office o/p est low 20 min",
+                    "status_code": "A",
+                    "work_rvu": 1.3,
+                    "pe_rvu_facility": 0.33,
+                    "pe_rvu_nonfacility": 1.46,
+                    "mp_rvu": 0.09,
+                    "total_rvu_facility": 1.72,
+                    "total_rvu_nonfacility": 2.85,
+                    "global_days": "XXX",
+                    "conversion_factor": 33.4009,
+                    "year": 2026,
+                    "quarter": 1,
+                    "source": "clickhouse"
+                  }
+                ],
+                "total_count": 1
+              }
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "userVisible": true,
+        "agentVisible": true
+      }
+    },
+    {
+      "id": "chatcmpl-588",
+      "role": "assistant",
+      "created": 1790700408,
+      "content": [
+        {
+          "type": "text",
+          "text": "\"HCPCS: `99213`\""
+        }
+      ],
+      "metadata": {
+        "userVisible": true,
+        "agentVisible": true,
+        "inference": {
+          "provider": "ollama",
+          "requestedModel": "llama3.1:8b"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "total_tokens": 12022,
+    "input_tokens": 11976,
+    "output_tokens": 46,
+    "cache_read_input_tokens": 11657,
+    "cache_write_input_tokens": 0,
+    "status": "completed"
+  }
+}
+
+---stderr---

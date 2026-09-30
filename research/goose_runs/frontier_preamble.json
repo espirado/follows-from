@@ -1,0 +1,14 @@
+[
+  {"id": "A", "cell": "call_short", "trial": 1, "verdict": "INSUFFICIENT_EVIDENCE"},
+  {"id": "A", "cell": "call_short", "trial": 2, "verdict": "INSUFFICIENT_EVIDENCE"},
+  {"id": "A", "cell": "call_short", "trial": 3, "verdict": "INSUFFICIENT_EVIDENCE"},
+  {"id": "B", "cell": "call_long", "trial": 1, "verdict": "INSUFFICIENT_EVIDENCE"},
+  {"id": "B", "cell": "call_long", "trial": 2, "verdict": "INSUFFICIENT_EVIDENCE"},
+  {"id": "B", "cell": "call_long", "trial": 3, "verdict": "INSUFFICIENT_EVIDENCE"},
+  {"id": "C", "cell": "response_short", "trial": 1, "verdict": "INSUFFICIENT_EVIDENCE"},
+  {"id": "C", "cell": "response_short", "trial": 2, "verdict": "INSUFFICIENT_EVIDENCE"},
+  {"id": "C", "cell": "response_short", "trial": 3, "verdict": "INSUFFICIENT_EVIDENCE"},
+  {"id": "D", "cell": "response_long", "trial": 1, "verdict": "INSUFFICIENT_EVIDENCE"},
+  {"id": "D", "cell": "response_long", "trial": 2, "verdict": "INSUFFICIENT_EVIDENCE"},
+  {"id": "D", "cell": "response_long", "trial": 3, "verdict": "INSUFFICIENT_EVIDENCE"}
+]

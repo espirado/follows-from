@@ -1,0 +1,132 @@
+
+    __( O)>  ● new session · ollama llama3.1:8b
+   \____)    20260929_4 · /Users/espirado/work/project/AAIFSEPT/WORK/follows-from
+     L L     goose is ready
+{
+  "messages": [
+    {
+      "id": null,
+      "role": "user",
+      "created": 1790700409,
+      "content": [
+        {
+          "type": "text",
+          "text": "Look up MPFS for CPT 99213 and tell me the HCPCS code the fee schedule returned. Use the lookup_mpfs tool. Quote only the HCPCS code from the tool result."
+        }
+      ],
+      "metadata": {
+        "userVisible": true,
+        "agentVisible": true
+      }
+    },
+    {
+      "id": "chatcmpl-256",
+      "role": "assistant",
+      "created": 1790700411,
+      "content": [
+        {
+          "type": "toolRequest",
+          "id": "call_7c8kbbmu",
+          "toolCall": {
+            "status": "success",
+            "value": {
+              "name": "rci-knowledge__lookup_mpfs",
+              "arguments": {
+                "code": "99213"
+              }
+            }
+          },
+          "_meta": {
+            "goose.toolCall.providerIndex": 0,
+            "goose_extension": "rci-knowledge"
+          }
+        }
+      ],
+      "metadata": {
+        "userVisible": true,
+        "agentVisible": true,
+        "inference": {
+          "provider": "ollama",
+          "requestedModel": "llama3.1:8b"
+        }
+      }
+    },
+    {
+      "id": "msg_57126836-e92e-41c1-9be8-d4d5ba695a7f",
+      "role": "user",
+      "created": 1790700411,
+      "content": [
+        {
+          "type": "toolResponse",
+          "id": "call_7c8kbbmu",
+          "toolResult": {
+            "status": "success",
+            "value": {
+              "content": [
+                {
+                  "type": "text",
+                  "text": "{\n  \"results\": [\n    {\n      \"hcpcs_code\": \"99213\",\n      \"modifier\": null,\n      \"short_descriptor\": \"Office o/p est low 20 min\",\n      \"status_code\": \"A\",\n      \"work_rvu\": 1.3,\n      \"pe_rvu_facility\": 0.33,\n      \"pe_rvu_nonfacility\": 1.46,\n      \"mp_rvu\": 0.09,\n      \"total_rvu_facility\": 1.72,\n      \"total_rvu_nonfacility\": 2.85,\n      \"global_days\": \"XXX\",\n      \"conversion_factor\": 33.4009,\n      \"year\": 2026,\n      \"quarter\": 1,\n      \"source\": \"clickhouse\"\n    }\n  ],\n  \"total_count\": 1\n}"
+                }
+              ],
+              "structuredContent": {
+                "results": [
+                  {
+                    "hcpcs_code": "99213",
+                    "modifier": null,
+                    "short_descriptor": "Office o/p est low 20 min",
+                    "status_code": "A",
+                    "work_rvu": 1.3,
+                    "pe_rvu_facility": 0.33,
+                    "pe_rvu_nonfacility": 1.46,
+                    "mp_rvu": 0.09,
+                    "total_rvu_facility": 1.72,
+                    "total_rvu_nonfacility": 2.85,
+                    "global_days": "XXX",
+                    "conversion_factor": 33.4009,
+                    "year": 2026,
+                    "quarter": 1,
+                    "source": "clickhouse"
+                  }
+                ],
+                "total_count": 1
+              }
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "userVisible": true,
+        "agentVisible": true
+      }
+    },
+    {
+      "id": "chatcmpl-536",
+      "role": "assistant",
+      "created": 1790700413,
+      "content": [
+        {
+          "type": "text",
+          "text": "The HCPCS code the fee schedule returned is \"99213\"."
+        }
+      ],
+      "metadata": {
+        "userVisible": true,
+        "agentVisible": true,
+        "inference": {
+          "provider": "ollama",
+          "requestedModel": "llama3.1:8b"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "total_tokens": 12007,
+    "input_tokens": 11969,
+    "output_tokens": 38,
+    "cache_read_input_tokens": 11780,
+    "cache_write_input_tokens": 0,
+    "status": "completed"
+  }
+}
+
+---stderr---

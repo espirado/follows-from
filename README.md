@@ -1,5 +1,7 @@
 # follows-from
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/espirado/follows-from)](https://m8ven.ai/mcp/espirado/follows-from)
+
 **Published:** 25 September 2026 · **Author:** Andrew Espira ([@espirado](https://github.com/espirado))
 
 AAIF September tutorial (goose + MCP): [Inspecting goose's MCP execution](docs/inspecting-goose-mcp-execution.md). Section 1 is a follow-along on the bundled `lookup_mpfs` traces: open the trace, run it, then change one field. The same walkthrough is published at [espiradev.org](https://espiradev.org/blog/mcp-trace-follows-from.html).

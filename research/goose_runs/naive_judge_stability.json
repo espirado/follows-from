@@ -1,0 +1,122 @@
+[
+  {
+    "trial": 1,
+    "run": 1,
+    "label": "printed_only",
+    "checker": "INSUFFICIENT_EVIDENCE",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "agree"
+  },
+  {
+    "trial": 1,
+    "run": 2,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "CONTRADICTED",
+    "disagreement": "false_contradiction"
+  },
+  {
+    "trial": 1,
+    "run": 3,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "missed_support"
+  },
+  {
+    "trial": 1,
+    "run": 4,
+    "label": "printed_only",
+    "checker": "INSUFFICIENT_EVIDENCE",
+    "naive_judge": "SUPPORTED",
+    "disagreement": "overclaim"
+  },
+  {
+    "trial": 1,
+    "run": 5,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "CONTRADICTED",
+    "disagreement": "false_contradiction"
+  },
+  {
+    "trial": 2,
+    "run": 1,
+    "label": "printed_only",
+    "checker": "INSUFFICIENT_EVIDENCE",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "agree"
+  },
+  {
+    "trial": 2,
+    "run": 2,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "CONTRADICTED",
+    "disagreement": "false_contradiction"
+  },
+  {
+    "trial": 2,
+    "run": 3,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "SUPPORTED",
+    "disagreement": "agree"
+  },
+  {
+    "trial": 2,
+    "run": 4,
+    "label": "printed_only",
+    "checker": "INSUFFICIENT_EVIDENCE",
+    "naive_judge": "SUPPORTED",
+    "disagreement": "overclaim"
+  },
+  {
+    "trial": 2,
+    "run": 5,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "missed_support"
+  },
+  {
+    "trial": 3,
+    "run": 1,
+    "label": "printed_only",
+    "checker": "INSUFFICIENT_EVIDENCE",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "agree"
+  },
+  {
+    "trial": 3,
+    "run": 2,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "CONTRADICTED",
+    "disagreement": "false_contradiction"
+  },
+  {
+    "trial": 3,
+    "run": 3,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "disagreement": "missed_support"
+  },
+  {
+    "trial": 3,
+    "run": 4,
+    "label": "printed_only",
+    "checker": "INSUFFICIENT_EVIDENCE",
+    "naive_judge": "SUPPORTED",
+    "disagreement": "overclaim"
+  },
+  {
+    "trial": 3,
+    "run": 5,
+    "label": "executed",
+    "checker": "SUPPORTED",
+    "naive_judge": "CONTRADICTED",
+    "disagreement": "false_contradiction"
+  }
+]

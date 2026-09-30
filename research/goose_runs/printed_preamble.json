@@ -1,0 +1,74 @@
+[
+  {
+    "trial": 1,
+    "cell": "call_short",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "overclaim": false
+  },
+  {
+    "trial": 1,
+    "cell": "call_long",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "overclaim": false
+  },
+  {
+    "trial": 1,
+    "cell": "response_short",
+    "naive_judge": "SUPPORTED",
+    "overclaim": true
+  },
+  {
+    "trial": 1,
+    "cell": "response_long",
+    "naive_judge": "SUPPORTED",
+    "overclaim": true
+  },
+  {
+    "trial": 2,
+    "cell": "call_short",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "overclaim": false
+  },
+  {
+    "trial": 2,
+    "cell": "call_long",
+    "naive_judge": "SUPPORTED",
+    "overclaim": true
+  },
+  {
+    "trial": 2,
+    "cell": "response_short",
+    "naive_judge": "SUPPORTED",
+    "overclaim": true
+  },
+  {
+    "trial": 2,
+    "cell": "response_long",
+    "naive_judge": "SUPPORTED",
+    "overclaim": true
+  },
+  {
+    "trial": 3,
+    "cell": "call_short",
+    "naive_judge": "INSUFFICIENT_EVIDENCE",
+    "overclaim": false
+  },
+  {
+    "trial": 3,
+    "cell": "call_long",
+    "naive_judge": "SUPPORTED",
+    "overclaim": true
+  },
+  {
+    "trial": 3,
+    "cell": "response_short",
+    "naive_judge": "SUPPORTED",
+    "overclaim": true
+  },
+  {
+    "trial": 3,
+    "cell": "response_long",
+    "naive_judge": "SUPPORTED",
+    "overclaim": true
+  }
+]

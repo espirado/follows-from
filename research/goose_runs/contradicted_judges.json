@@ -1,0 +1,14 @@
+[
+  {"model": "llama3.1:8b", "trial": 1, "verdict": "CONTRADICTED"},
+  {"model": "llama3.1:8b", "trial": 2, "verdict": "CONTRADICTED"},
+  {"model": "llama3.1:8b", "trial": 3, "verdict": "CONTRADICTED"},
+  {"model": "grok-4.6", "trial": 1, "verdict": "CONTRADICTED", "agent": "2a6c64c1-27d2-4baf-8c2b-4c0275b7def6"},
+  {"model": "grok-4.6", "trial": 2, "verdict": "CONTRADICTED", "agent": "fbbb10f6-859e-4af4-a4f2-7b394f024d04"},
+  {"model": "grok-4.6", "trial": 3, "verdict": "CONTRADICTED", "agent": "f3ae3541-0fca-402d-9b86-e63aae3bec50"},
+  {"model": "claude-opus-5.5", "trial": 1, "verdict": "CONTRADICTED", "agent": "f17cf995-bd22-40e5-94ea-5982a3684bd2"},
+  {"model": "claude-opus-5.5", "trial": 2, "verdict": "CONTRADICTED", "agent": "cb9f889a-9716-46f7-84bf-14a8c86326dc"},
+  {"model": "claude-opus-5.5", "trial": 3, "verdict": "CONTRADICTED", "agent": "e6dad671-3a6d-4f73-933c-38789320d2a9"},
+  {"model": "gpt-5.6", "trial": 1, "verdict": "CONTRADICTED", "agent": "660200f1-20bd-4951-a035-90aeede31a2d"},
+  {"model": "gpt-5.6", "trial": 2, "verdict": "CONTRADICTED", "agent": "9c028dd2-184d-4649-88be-2107339c0b26"},
+  {"model": "gpt-5.6", "trial": 3, "verdict": "CONTRADICTED", "agent": "de41d3ca-8d63-42f1-8487-ee22048f732c"}
+]
