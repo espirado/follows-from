@@ -1,6 +1,6 @@
 # follows-from
 
-[![M8ven Score](https://m8ven.ai/badge/mcp/espirado/follows-from)](https://m8ven.ai/mcp/espirado/follows-from)
+[![M8ven Score](https://m8ven.ai/badge/mcp/espirado-follows-from-3dez0c?v=610963d3bc90f7784e4f902df884d3dd)](https://m8ven.ai/mcp/espirado-follows-from-3dez0c?s=readme)
 
 **Published:** 25 September 2026 · **Author:** Andrew Espira ([@espirado](https://github.com/espirado))
 
