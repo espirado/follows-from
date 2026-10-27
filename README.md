@@ -6,6 +6,8 @@
 
 AAIF September tutorial (goose + MCP): [Inspecting goose's MCP execution](docs/inspecting-goose-mcp-execution.md). Section 1 is a follow-along on the bundled `lookup_mpfs` traces: open the trace, run it, then change one field. The same walkthrough is published at [espiradev.org](https://espiradev.org/blog/mcp-trace-follows-from.html).
 
+[When a verifier says SUPPORTED and the trace does not](docs/verifier-overclaim-classes.md) — three overclaim classes, measured against the MCP result.
+
 **Does an agent's action follow from the evidence it actually got?**
 
 Agent-audit tooling mostly records *what* an agent did — which tools it called,
